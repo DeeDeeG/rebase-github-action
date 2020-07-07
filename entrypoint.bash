@@ -38,9 +38,12 @@ fi
 echo "BASE_REF=${BASE_REF}"
 echo "HEAD_BRANCH=${HEAD_BRANCH}"
 
+mkdir _tmp && cd _tmp
+git init
+
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
 git remote update
 git remote -v
