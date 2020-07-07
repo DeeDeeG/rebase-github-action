@@ -45,11 +45,14 @@ git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${G
 git remote -v
 git remote update
 
-if [[ "${BASE_REF}" == refs/* ]]; then
-  REMOTE_PREFIX=""
-else
-  REMOTE_PREFIX="origin/"
+# These refs exist at the remote, but not at our local clone/checkout.
+if [[ "${BASE_REF}" == refs/heads/* ]]; then
+  BASE_REF="${BASE_REF#refs/heads/}"
+elif [[ "${BASE_REF}" == refs/remotes/* ]]; then
+  BASE_REF="${BASE_REF#refs/remotes/}"
+elif [[ "${BASE_REF}" == refs/tags/* ]]; then
+  BASE_REF="${BASE_REF#refs/tags/}"
 fi
 
-git rebase --autosquash --autostash "${REMOTE_PREFIX}${BASE_REF}" "${HEAD_BRANCH}"
+git rebase --autosquash --autostash "origin/${BASE_REF}" "${HEAD_BRANCH}"
 git push --force origin "${HEAD_BRANCH}"
