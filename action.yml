@@ -1,0 +1,23 @@
+name: 'Git Rebase'
+description: 'Rebases a base branch onto a source branch or source Git ref. Works with local branches and refs only.'
+inputs:
+  github_token:
+    description: 'Token to authenticate with GitHub'
+    required: true
+    default: ${{ github.token }}
+  base_ref:
+    description: 'Branch or Git ref that you are rebasing the head_branch on top of.'
+    required: true
+    default: ${{ github.ref }}
+  head_branch:
+    description: 'Branch you are rebasing, to be rebased on top of the base_ref.'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.base_ref }}
+    - ${{ inputs.head_branch }}
+branding:
+  icon: 'git-merge'
+  color: 'black'
