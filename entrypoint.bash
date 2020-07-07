@@ -16,8 +16,8 @@ if [[ -n "${SSH_PRIVATE_KEY}" ]]; then
   cp /root/.ssh/* ~/.ssh/ 2> /dev/null || true
 fi
 
-BASE_REF=$1
-HEAD_BRANCH=$2
+BASE_REF="${1}"
+HEAD_BRANCH="${2}"
 
 if [[ -z "${BASE_REF}" ]]; then
   echo "Missing \$BASE_REF"
@@ -37,9 +37,6 @@ fi
 
 echo "BASE_REF=${BASE_REF}"
 echo "HEAD_BRANCH=${HEAD_BRANCH}"
-
-mkdir _tmp && cd _tmp
-git init
 
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
