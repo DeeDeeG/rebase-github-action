@@ -43,10 +43,12 @@ git init
 
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-git remote update
+git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
 git remote -v
+git remote update
 
 git rebase --autosquash --autostash "${BASE_REF}" "${HEAD_BRANCH}"
 git push --force origin "${HEAD_BRANCH}"
