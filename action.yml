@@ -1,4 +1,4 @@
-name: 'Git Rebase'
+name: 'Local Git Rebase'
 description: 'Rebases a base branch onto a source branch or source Git ref. Works with local branches and refs only.'
 inputs:
   github_token:
