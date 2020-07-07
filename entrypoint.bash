@@ -45,5 +45,5 @@ git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${G
 git remote -v
 git remote update
 
-git rebase --autosquash --autostash "${BASE_REF}" "${HEAD_BRANCH}"
+git rebase --autosquash --autostash "origin/${BASE_REF}" "${HEAD_BRANCH}"
 git push --force origin "${HEAD_BRANCH}"
