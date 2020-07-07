@@ -47,4 +47,12 @@ jobs:
 
 ## Acknlowledgements
 
-This Action is based heavily on https://github.com/actions-registry/github-repo-sync-upstream and somewhat on https://github.com/everlytic/branch-merge. Their license notices can be viewed here: https://github.com/DeeDeeG/rebase-github-action/tree/main/UPSTREAM_LICENSE_NOTICES
+This Action is based heavily on:
+-  https://github.com/actions-registry/github-repo-sync-upstream 
+and somewhat on:
+-  https://github.com/everlytic/branch-merge.
+
+Their license notices can be viewed here:
+https://github.com/DeeDeeG/rebase-github-action/tree/main/UPSTREAM_LICENSE_NOTICES
+
+If you want to rebase your branch on top of an upstream of your fork, and you don't mind scheduling the Action, consider just using https://github.com/actions-registry/github-repo-sync-upstream. that Action is the rebase-across-repositories version, whereas this Action is the local-to-your-repository version.
