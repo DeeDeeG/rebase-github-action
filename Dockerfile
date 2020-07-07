@@ -1,4 +1,4 @@
-FROM docker.io/alpine:3.12
+FROM docker.io/alpine:3.11
 
 LABEL \
   "name"="GitHub Repo Sync Upstream" \
