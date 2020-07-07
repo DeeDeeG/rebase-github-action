@@ -21,9 +21,13 @@ jobs:
   rebase_branches:
     runs-on: ubuntu-latest
     steps:
-      - name: Rebase head_branch on base_ref
-        # Recommended: specify a version such as `@v1.0` rather than `@main`
-        uses: DeeDeeG/rebase-github-action@main
+      - uses: actions/checkout@v2
+        with:
+          # Default ref to checkout is the ref that triggered the workflow.
+          # Set manually to override this behavior (we want to checkout the "rebase head" branch).
+          ref: my-rebase-head-breanch
+      # Recommended: specify a version such as `@v1.0` rather than `@main`
+      - uses: DeeDeeG/rebase-github-action@main
         with:
           # Head branch, which will be rebased onto the base_ref.
           head_branch: my-rebase-head-breanch
