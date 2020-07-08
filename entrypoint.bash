@@ -47,13 +47,13 @@ fi
 echo "BASE_REF=${BASE_REF}"
 echo "HEAD_BRANCH=${HEAD_BRANCH}"
 
+git init
+git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-# git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
 git remote -v
-# git remote update
-git fetch --unshallow origin
 
 # These refs exist at the remote, but not at our local clone/checkout.
 if [[ "${BASE_REF}" == refs/heads/* ]]; then
@@ -72,7 +72,8 @@ elif [[ "${HEAD_BRANCH}" == refs/tags/* ]]; then
   HEAD_BRANCH="${HEAD_BRANCH#refs/tags/}"
 fi
 
-git switch "${BASE_REF}"
+git fetch --unshallow origin "${BASE_REF}" "${HEAD_BRANCH}"
+
 git switch "${HEAD_BRANCH}"
-git rebase --autosquash --autostash "${BASE_REF}" "${HEAD_BRANCH}"
+git rebase --autosquash --autostash origin/"${BASE_REF}" "${HEAD_BRANCH}"
 git push --force origin "${HEAD_BRANCH}"
