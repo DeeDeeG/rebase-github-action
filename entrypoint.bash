@@ -68,7 +68,7 @@ elif [[ "${HEAD_BRANCH}" == refs/tags/* ]]; then
   HEAD_BRANCH="${HEAD_BRANCH#refs/tags/}"
 fi
 
+git switch "${BASE_REF}"
 git switch "${HEAD_BRANCH}"
-git reset --hard HEAD
-git rebase --autosquash --autostash "origin/${BASE_REF}" "${HEAD_BRANCH}"
+git rebase --autosquash --autostash "${BASE_REF}" "${HEAD_BRANCH}"
 git push --force origin "${HEAD_BRANCH}"
