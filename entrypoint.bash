@@ -19,8 +19,7 @@ fi
 BASE_REF="${1}"
 HEAD_BRANCH="${2}"
 GITHUB_TOKEN="${3}"
-
-echo "GITHUB_TOKEN=${GITHUB_TOKEN}"
+FETCH_DEPTH="${4}"
 
 if [[ -z "${BASE_REF}" ]]; then
   echo "Missing \$BASE_REF"
@@ -72,7 +71,7 @@ elif [[ "${HEAD_BRANCH}" == refs/tags/* ]]; then
   HEAD_BRANCH="${HEAD_BRANCH#refs/tags/}"
 fi
 
-git fetch --deepen="50" origin "${BASE_REF}" "${HEAD_BRANCH}"
+git fetch --deepen="${FETCH_DEPTH}" origin "${BASE_REF}" "${HEAD_BRANCH}"
 
 git switch "${HEAD_BRANCH}"
 git rebase --autosquash --autostash origin/"${BASE_REF}" "${HEAD_BRANCH}"

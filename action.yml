@@ -13,6 +13,10 @@ inputs:
     description: 'Branch you are rebasing, to be rebased on top of the base_ref.'
     required: true
     default: ${{ github.ref }}
+  fetch-depth:
+    description: 'Depth to fetch branches to before rebasing. Too many large commits could be slow. But both branches must be fetched deep enough to reach their common ancestor commit(s), otherwise rebasing may fail.'
+    required: true
+    default: 50
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -20,6 +24,7 @@ runs:
     - ${{ inputs.base_ref }}
     - ${{ inputs.head_branch }}
     - ${{ inputs.github_token }}
+    - ${{ inputs.fetch-depth }}
 branding:
   icon: 'git-merge'
   color: 'black'
