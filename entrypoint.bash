@@ -30,6 +30,12 @@ else
   BASE_REF=$(git check-ref-format --allow-onelevel --normalize "${BASE_REF}")
 fi
 
+if ! git check-ref-format --allow-onelevel --normalize "${HEAD_BRANCH}"; then
+  echo "HEAD_BRANCH is invalid: ${HEAD_BRANCH}"
+else
+  HEAD_BRANCH=$(git check-ref-format --allow-onelevel --normalize "${HEAD_BRANCH}")
+fi
+
 echo "BASE_REF=${BASE_REF}"
 echo "HEAD_BRANCH=${HEAD_BRANCH}"
 
@@ -47,6 +53,14 @@ elif [[ "${BASE_REF}" == refs/remotes/* ]]; then
   BASE_REF="${BASE_REF#refs/remotes/}"
 elif [[ "${BASE_REF}" == refs/tags/* ]]; then
   BASE_REF="${BASE_REF#refs/tags/}"
+fi
+
+if [[ "${HEAD_BRANCH}" == refs/heads/* ]]; then
+  HEAD_BRANCH="${HEAD_BRANCH#refs/heads/}"
+elif [[ "${HEAD_BRANCH}" == refs/remotes/* ]]; then
+  HEAD_BRANCH="${HEAD_BRANCH#refs/remotes/}"
+elif [[ "${HEAD_BRANCH}" == refs/tags/* ]]; then
+  HEAD_BRANCH="${HEAD_BRANCH#refs/tags/}"
 fi
 
 git rebase --autosquash --autostash "origin/${BASE_REF}" "${HEAD_BRANCH}"
