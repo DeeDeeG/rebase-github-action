@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
-set -x
+# set -x
 
 if [[ -n "${SSH_PRIVATE_KEY}" ]]; then
   echo "Saving SSH_PRIVATE_KEY"
