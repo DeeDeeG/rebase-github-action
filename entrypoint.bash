@@ -24,11 +24,6 @@ if [[ -z "${BASE_REF}" ]]; then
   exit 1
 fi
 
-if [[ -z "${HEAD_BRANCH}" ]]; then
-  echo "Missing \$HEAD_BRANCH"
-  exit 1
-fi
-
 if ! git check-ref-format --allow-onelevel --normalize "${BASE_REF}"; then
   echo "BASE_REF is invalid: ${BASE_REF}"
 else
