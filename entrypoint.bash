@@ -72,7 +72,7 @@ elif [[ "${HEAD_BRANCH}" == refs/tags/* ]]; then
   HEAD_BRANCH="${HEAD_BRANCH#refs/tags/}"
 fi
 
-git fetch --unshallow origin "${BASE_REF}" "${HEAD_BRANCH}"
+git fetch --deepen="50" origin "${BASE_REF}" "${HEAD_BRANCH}"
 
 git switch "${HEAD_BRANCH}"
 git rebase --autosquash --autostash origin/"${BASE_REF}" "${HEAD_BRANCH}"
