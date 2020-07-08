@@ -31,13 +31,13 @@ if [[ -z "${HEAD_BRANCH}" ]]; then
   exit 1
 fi
 
-if ! git check-ref-format --allow-onelevel --normalize "${BASE_REF}"; then
+if ! git check-ref-format --allow-onelevel --normalize "${BASE_REF}" &>/dev/null; then
   echo "BASE_REF is invalid: ${BASE_REF}"
 else
   BASE_REF=$(git check-ref-format --allow-onelevel --normalize "${BASE_REF}")
 fi
 
-if ! git check-ref-format --allow-onelevel --normalize "${HEAD_BRANCH}"; then
+if ! git check-ref-format --allow-onelevel --normalize "${HEAD_BRANCH}" &>/dev/null; then
   echo "HEAD_BRANCH is invalid: ${HEAD_BRANCH}"
 else
   HEAD_BRANCH=$(git check-ref-format --allow-onelevel --normalize "${HEAD_BRANCH}")
