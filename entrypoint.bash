@@ -49,7 +49,8 @@ git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 # git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
 git remote -v
-git remote update
+# git remote update
+git fetch --unshallow origin
 
 # These refs exist at the remote, but not at our local clone/checkout.
 if [[ "${BASE_REF}" == refs/heads/* ]]; then
