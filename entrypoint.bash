@@ -18,6 +18,9 @@ fi
 
 BASE_REF="${1}"
 HEAD_BRANCH="${2}"
+GITHUB_TOKEN="${3}"
+
+echo "GITHUB_TOKEN=${GITHUB_TOKEN}"
 
 if [[ -z "${BASE_REF}" ]]; then
   echo "Missing \$BASE_REF"
