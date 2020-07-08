@@ -75,4 +75,4 @@ git fetch --deepen="${FETCH_DEPTH}" origin "${BASE_REF}" "${HEAD_BRANCH}"
 
 git switch "${HEAD_BRANCH}"
 git rebase --autosquash --autostash origin/"${BASE_REF}" "${HEAD_BRANCH}"
-git push --force origin "${HEAD_BRANCH}"
+git push --force-with-lease origin "${HEAD_BRANCH}"
