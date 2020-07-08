@@ -17,17 +17,17 @@ if [[ -n "${SSH_PRIVATE_KEY}" ]]; then
 fi
 
 BASE_REF="${1}"
-HEAD_BRANCH="${2}"
-GITHUB_TOKEN="${3}"
-FETCH_DEPTH="${4}"
+REBASED_BRANCH="${2}"
+FETCH_DEPTH="${3}"
+GITHUB_TOKEN="${4}"
 
 if [[ -z "${BASE_REF}" ]]; then
   echo "Missing \$BASE_REF"
   exit 1
 fi
 
-if [[ -z "${HEAD_BRANCH}" ]]; then
-  echo "Missing \$HEAD_BRANCH"
+if [[ -z "${REBASED_BRANCH}" ]]; then
+  echo "Missing \$REBASED_BRANCH"
   exit 1
 fi
 
@@ -37,14 +37,14 @@ else
   BASE_REF=$(git check-ref-format --allow-onelevel --normalize "${BASE_REF}")
 fi
 
-if ! git check-ref-format --allow-onelevel --normalize "${HEAD_BRANCH}" &>/dev/null; then
-  echo "HEAD_BRANCH is invalid: ${HEAD_BRANCH}"
+if ! git check-ref-format --allow-onelevel --normalize "${REBASED_BRANCH}" &>/dev/null; then
+  echo "REBASED_BRANCH is invalid: ${REBASED_BRANCH}"
 else
-  HEAD_BRANCH=$(git check-ref-format --allow-onelevel --normalize "${HEAD_BRANCH}")
+  REBASED_BRANCH=$(git check-ref-format --allow-onelevel --normalize "${REBASED_BRANCH}")
 fi
 
 echo "BASE_REF=${BASE_REF}"
-echo "HEAD_BRANCH=${HEAD_BRANCH}"
+echo "REBASED_BRANCH=${REBASED_BRANCH}"
 
 git init
 git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
@@ -63,16 +63,16 @@ elif [[ "${BASE_REF}" == refs/tags/* ]]; then
   BASE_REF="${BASE_REF#refs/tags/}"
 fi
 
-if [[ "${HEAD_BRANCH}" == refs/heads/* ]]; then
-  HEAD_BRANCH="${HEAD_BRANCH#refs/heads/}"
-elif [[ "${HEAD_BRANCH}" == refs/remotes/* ]]; then
-  HEAD_BRANCH="${HEAD_BRANCH#refs/remotes/}"
-elif [[ "${HEAD_BRANCH}" == refs/tags/* ]]; then
-  HEAD_BRANCH="${HEAD_BRANCH#refs/tags/}"
+if [[ "${REBASED_BRANCH}" == refs/heads/* ]]; then
+  REBASED_BRANCH="${REBASED_BRANCH#refs/heads/}"
+elif [[ "${REBASED_BRANCH}" == refs/remotes/* ]]; then
+  REBASED_BRANCH="${REBASED_BRANCH#refs/remotes/}"
+elif [[ "${REBASED_BRANCH}" == refs/tags/* ]]; then
+  REBASED_BRANCH="${REBASED_BRANCH#refs/tags/}"
 fi
 
-git fetch --deepen="${FETCH_DEPTH}" origin "${BASE_REF}" "${HEAD_BRANCH}"
+git fetch --deepen="${FETCH_DEPTH}" origin "${BASE_REF}" "${REBASED_BRANCH}"
 
-git switch "${HEAD_BRANCH}"
-git rebase --autosquash --autostash origin/"${BASE_REF}" "${HEAD_BRANCH}"
-git push --force-with-lease origin "${HEAD_BRANCH}"
+git switch "${REBASED_BRANCH}"
+git rebase --autosquash --autostash origin/"${BASE_REF}" "${REBASED_BRANCH}"
+git push --force-with-lease origin "${REBASED_BRANCH}"

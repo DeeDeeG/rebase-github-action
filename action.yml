@@ -1,30 +1,30 @@
 name: 'Local Git Rebase'
-description: 'Rebases a base branch onto a source branch or source Git ref. Works with local branches and refs only.'
+description: 'Rebases a base branch onto a source branch (or source Git ref). Works with local branches and refs only.'
 inputs:
-  github_token:
-    description: 'Token to authenticate with GitHub'
-    required: true
-    default: ${{ github.token }}
   base_ref:
-    description: 'Branch or Git ref that you are rebasing the head_branch on top of.'
+    description: 'Branch or Git ref that you are rebasing the rebased_branch on top of.'
     required: true
     default: ${{ github.ref }}
-  head_branch:
+  rebased_branch:
     description: 'Branch you are rebasing, to be rebased on top of the base_ref.'
     required: true
     default: ${{ github.ref }}
   fetch-depth:
-    description: 'Depth to fetch branches to before rebasing. Too many large commits could be slow. But both branches must be fetched deep enough to reach their common ancestor commit(s), otherwise rebasing may fail.'
+    description: 'Depth to fetch branches to before rebasing. Set smaller for faster, larger for more reliable with longer branches. (Too many large commits could be slow. But both branches must be fetched deep enough to reach their common ancestor commit(s), otherwise rebasing may fail.)'
     required: true
     default: 50
+  github_token:
+    description: 'Token to authenticate with GitHub'
+    required: true
+    default: ${{ github.token }}
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.base_ref }}
-    - ${{ inputs.head_branch }}
-    - ${{ inputs.github_token }}
+    - ${{ inputs.rebased_branch }}
     - ${{ inputs.fetch-depth }}
+    - ${{ inputs.github_token }}
 branding:
   icon: 'git-merge'
   color: 'black'
