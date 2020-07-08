@@ -8,9 +8,7 @@ LABEL \
 
 RUN apk add --no-cache \
 			bash \
-			git \
-			openssh-client && \
-		echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+			git
 
 ADD entrypoint.bash /
 
