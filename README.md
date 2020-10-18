@@ -1,3 +1,7 @@
+# THIS GITHUB ACTION IS NOT MAINTAINED ANYMORE.
+
+See https://github.com/DeeDeeG/rebase-github-action/issues/2.
+
 # Local Git Rebase
 
 This task rebases a local branch onto another local branch or ref, all within the current GitHub repository.
